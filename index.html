@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GuadaHealth Transcribe</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="auth-screen" class="auth-screen">
+      <div class="auth-card">
+        <div class="brand">
+          <div class="brand-icon">✚</div>
+          <div>
+            <h2><span class="brand-guada">Guada</span><span class="brand-health">Health</span></h2>
+            <p>Secure transcription access</p>
+          </div>
+        </div>
+        <h1>Transcription System</h1>
+        <p class="auth-copy">Only <strong>authorized staff</strong> can view, transcribe, and archive medical notes.</p>
+        <form id="login-form" class="stacked-form">
+          <label>
+            Username
+            <input id="username" name="username" type="text" placeholder="staff" required />
+          </label>
+          <label>
+            Password
+            <input id="password" name="password" type="password" placeholder="guada2026" required />
+          </label>
+          <button type="submit">Login to workspace</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="app-shell" class="app-shell hidden">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-icon">✚</div>
+          <div>
+            <h2><span class="brand-guada">Guada</span><span class="brand-health">Health</span></h2>
+            <p>Clinical note workspace</p>
+          </div>
+        </div>
+
+        <nav class="nav-links sidebar-nav" aria-label="Primary">
+          <button class="nav-btn active" data-view="dashboard"><span class="nav-icon">📊</span> Dashboard</button>
+          <button class="nav-btn" data-view="transcribe"><span class="nav-icon">📝</span> Transcribe</button>
+          <button class="nav-btn" data-view="records"><span class="nav-icon">🗂️</span> Records</button>
+        </nav>
+        </nav>
+
+        <div class="sidebar-card">
+          <p class="eyebrow">Secure workflow</p>
+          <p>Only authorized staff can process, review, and store transcribed notes.</p>
+          <button id="logout-btn" class="ghost-btn">Sign out</button>
+        </div>
+      </aside>
+
+      <div class="main-panel">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">GuadaHealth Institution</p>
+            <h1>Clinical notes, simplified for faster care</h1>
+          </div>
+          <div class="topbar-actions">
+            <div id="auth-status" class="status-pill">Not signed in</div>
+          </div>
+        </header>
+
+        <main class="content">
+          <section id="dashboard-view" class="view active">
+            <div class="hero-card">
+              <div>
+                <p class="eyebrow">Today’s workflow</p>
+                <h2 id="welcome-title">Welcome to the transcription workspace</h2>
+                <p id="welcome-copy">
+                  Sign in to upload doctor notes, review plain-text transcriptions, and save them into the institutional archive.
+                </p>
+              </div>
+              <div class="hero-metrics">
+                <div class="metric-card">
+                  <span id="stat-notes">0</span>
+                  <small>notes stored</small>
+                </div>
+                <div class="metric-card">
+                  <span id="stat-pending">0</span>
+                  <small>pending review</small>
+                </div>
+                <div class="metric-card">
+                  <span id="stat-reviewed">0</span>
+                  <small>reviewed</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="card">
+                <div class="card-header">
+                  <h3>Session status</h3>
+                  <p>You are now inside the protected workspace for note transcription.</p>
+                </div>
+                <p class="session-copy">Use the navigation above to move between the dashboard, transcription tools, and saved records.</p>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h3>Workflow snapshot</h3>
+                  <p>Each note moves through upload, transcription, review, and archive.</p>
+                </div>
+                <ol class="timeline">
+                  <li> Upload a doctor note or scan.</li>
+                  <li> Generate a plain-language transcription.</li>
+                  <li> Save the note into the records database.</li>
+                  <li> Review and update the note status.</li>
+                </ol>
+              </div>
+            </div>
+          </section>
+
+          <section id="transcribe-view" class="view">
+            <div class="card">
+              <div class="card-header">
+                <h2>Upload and transcribe</h2>
+                <p>Attach a scanned note, add context, and create a readable transcription.</p>
+              </div>
+              <form id="scanner-form" class="stacked-form">
+                <div class="form-row">
+                  <label>
+                    Document file
+                    <input id="file-input" type="file" accept="image/*,.pdf" />
+                  </label>
+                  <label>
+                    Patient / source
+                    <input id="source-input" type="text" placeholder="Example: Cardiology consult" />
+                  </label>
+                </div>
+                <button id="scan-button" type="button" class="secondary-btn">Generate transcription preview</button>
+                <textarea id="transcription-output" rows="10" placeholder="The transcription preview will appear here..."></textarea>
+                <div class="button-row">
+                  <button id="save-button" type="submit">Save note</button>
+                  <button id="clear-button" type="button" class="ghost-btn">Clear form</button>
+                </div>
+              </form>
+            </div>
+          </section>
+
+          <section id="records-view" class="view">
+            <div class="card">
+              <div class="card-header">
+                <h2>Saved note records</h2>
+                <p>Review, search, and update transcribed entries stored for the institution.</p>
+              </div>
+              <div class="toolbar">
+                <input id="search-input" type="search" placeholder="Search notes..." />
+                <select id="status-filter" aria-label="Filter note status">
+                  <option value="all">All statuses</option>
+                  <option value="Pending review">Pending review</option>
+                  <option value="Reviewed">Reviewed</option>
+                </select>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Source</th>
+                      <th>Status</th>
+                      <th>Saved</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="records-table-body"></tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <div id="toast" class="toast" aria-live="polite"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
