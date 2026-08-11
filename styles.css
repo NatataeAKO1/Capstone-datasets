@@ -132,8 +132,12 @@ button {
 
 .nav-links {
   display: flex;
-  flex-direction: column;
   gap: 8px;
+}
+
+.nav-links-top {
+  flex-wrap: wrap;
+  margin-bottom: 18px;
 }
 
 .nav-btn,
@@ -163,7 +167,7 @@ button {
 
 .sidebar-card {
   padding: 16px;
-  margin-top: auto;
+  margin-top: 0;
 }
 
 .sidebar-card p {
@@ -430,6 +434,10 @@ th {
 
   .sidebar-card {
     margin-top: 0;
+  }
+
+  .nav-links-top {
+    margin-bottom: 14px;
   }
 
   .hero-card {
